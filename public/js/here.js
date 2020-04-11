@@ -3,8 +3,10 @@
             localCoord = position.coords;
             objLocalCoord = {
                 lat: localCoord.latitude,
-                lang: localCoord.langitude
+                lng: localCoord.longitude
             }
+
+            console.log(objLocalCoord)
 
             // Initialize the platform object:
             let platform = new H.service.Platform({
@@ -21,10 +23,10 @@
                 {
                     zoom: 13,
                     center: objLocalCoord, //center posisi local yang ditunjuk
-                    pixelRation:window.devicePixelRatio
+                    pixelRatio:window.devicePixelRatio || 1
                 });
 
-                window.addEventListener('resize')
+                window.addEventListener('resize',() => map.getViewPort().resize());
 
                 let ui = H.ui.UI.createDefault(map, defaultLayers);
                 let mapEvents = new H.mapevents.MapEvents(map); //menggunakan scroll zoom dll
