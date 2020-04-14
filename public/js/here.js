@@ -101,12 +101,69 @@ if (navigator.geolocation) {
             }, false);
         }
 
-        if(window.action == "submit"){
+        if (window.action == "submit") {
             // jika ada window.action == submit maka jalankan. 
             // window action akan di init di file space->create.blade.php
-            addDragableMarker(map,behavior);
+            addDragableMarker(map, behavior);
         }
 
+        // Browse Location
+        let spaces = [];
+        const fetchSpaces = function (latitude, longitude, radius) {
+            console.log("heeeiiii")
+            return new Promise(function (resolve, reject) {
+                resolve(
+                    fetch(`/api/spaces?lat=${latitude}&lng=${longitude}&rad=${radius}`)
+                        .then((res) => res.json())
+                        .then(function (data) {
+                            //console.log("haiiiii")
+                            data.forEach(function (value, index) {
+                                let marker = new H.map.Marker({
+                                    lat: value.latitude,
+                                    lng: value.longitude
+                                })
+                                spaces.push(marker);
+                            })
+                            //console.log("cek" + spaces)
+                        })
+                )
+            })
+        }
+
+
+
+
+
+        function clearSpace() {
+            map.removeObjects(spaces);
+            spaces = [];
+        }
+
+        function init(latitude, longitude, radius) {
+            clearSpace();
+
+            fetchSpaces(latitude, longitude, radius)
+                .then(function () {
+                    console.log(spaces)
+                    map.addObjects(spaces);
+                })
+
+        }
+
+        if (window.action == 'browse') {
+
+            map.addEventListener('dragend', function (ev) {
+
+                let resultCoord = map.screenToGeo(
+                    ev.currentPointer.viewportX,
+                    ev.currentPointer.viewportY
+                );
+                console.log(resultCoord)
+                init(resultCoord.lat, resultCoord.lng, 40);
+            }, false)
+
+            init(-7.60368, 110.81197, 40);
+        }
     }))
 }
 else {
