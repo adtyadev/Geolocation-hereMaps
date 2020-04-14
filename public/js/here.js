@@ -162,9 +162,16 @@ if (navigator.geolocation) {
                 init(resultCoord.lat, resultCoord.lng, 40);
             }, false)
 
-            init(-7.60368, 110.81197, 40);
+            init(objLocalCoord.lat, objLocalCoord.lng, 40);
         }
+
+
+
+
     }))
+    function openDirection(lat,lng,id){
+        window.open(`/space/${id}?from=${objLocalCoord.lat},${objLocalCoord.lng}&to=${lat},${lng}`,"_self");
+    }
 }
 else {
     console.error("Geolocation Not Supported by this browser !")
