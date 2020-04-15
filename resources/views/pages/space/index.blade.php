@@ -28,6 +28,7 @@
                     <a href="#" onclick="openDirection({{$space->latitude}},{{$space->longitude}},{{$space->id}})" class="card-link" id=""> Direction</a>
                 </div>
             </div>
+            <br>
             @endforeach
             <div class="row justify-content-center">
                 {{$spaces->links()}}

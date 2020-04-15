@@ -83,10 +83,17 @@
                         <div class="input-group">
                             <input type="file" name="photo[]" class="form-control">
                             <div class="input-group-append">
-                                <button type="button"  class="btn btn-outline-primary btn-add"> <i class="fas fa-plus-square"></i></button>
+                                <button type="button" class="btn btn-outline-primary btn-add"> <i class="fas fa-plus-square"></i></button>
                             </div>
                         </div>
                     </div>
+                    @if($errors->has('photo'))
+                    <ul class="alert alert-danger">
+                        @foreach($errors->get('photo') as $errors)
+                        <li> {{$errors}}</li>
+                        @endforeach
+                    </ul>
+                    @endif
                     <div class="clone invisible">
                         <div class="input-group mt-2">
                             <input type="file" name="photo[]" class="form-control">
@@ -109,11 +116,12 @@
         window.action = "submit"
         $(document).ready(function() {
             console.log("ready!");
-            $(".btn-add").click(function(){
+            $(".btn-add").click(function() {
                 let markup = $(".invisible").html();
                 $(".increment").append(markup);
             })
-            $("body").on("click", ".btn-remove" , function(){
+            $("body").on("click", ".btn-remove", function() {
+                //hapus parents dari (this) yang memiliki class input-group
                 $(this).parents(".input-group").remove();
             })
         });

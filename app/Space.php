@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use app\User;
-use app\SpacePhoto;
+use App\User;
+use App\SpacePhoto;
 
 class Space extends Model
 {
