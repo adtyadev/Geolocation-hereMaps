@@ -78,6 +78,23 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group increment">
+                        <label for=""> Photo </label>
+                        <div class="input-group">
+                            <input type="file" name="photo[]" class="form-control">
+                            <div class="input-group-append">
+                                <button type="button"  class="btn btn-outline-primary btn-add"> <i class="fas fa-plus-square"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clone invisible">
+                        <div class="input-group mt-2">
+                            <input type="file" name="photo[]" class="form-control">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-danger btn-remove"> <i class="fas fa-minus-square"></i></button>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
 
                     {!! Form::close() !!}
@@ -90,5 +107,15 @@
     @push('script')
     <script>
         window.action = "submit"
+        $(document).ready(function() {
+            console.log("ready!");
+            $(".btn-add").click(function(){
+                let markup = $(".invisible").html();
+                $(".increment").append(markup);
+            })
+            $("body").on("click", ".btn-remove" , function(){
+                $(this).parents(".input-group").remove();
+            })
+        });
     </script>
     @endpush
