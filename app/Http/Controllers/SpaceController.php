@@ -85,7 +85,8 @@ class SpaceController extends Controller
     {
 
         $space = Space::findOrFail($id);
-
+        // dump($space);
+        // dump($space->photos);
         return view('pages.space.show', compact('space'));
     }
 
